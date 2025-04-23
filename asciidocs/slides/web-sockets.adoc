@@ -12,14 +12,9 @@
 :revealjs_width: 1408
 :revealjs_height: 792
 :source-highlighter: highlightjs
-//:revealjs_parallaxBackgroundImage: images/background-landscape-light-orange.jpg
-//:revealjs_parallaxBackgroundSize: 4936px 2092px
-//:highlightjs-theme: css/atom-one-light.css
-// we want local served font-awesome fonts
 :iconfont-remote!:
 :iconfont-name: fonts/fontawesome/css/all
-//:revealjs_parallaxBackgroundImage: background-landscape-light-orange.jpg
-//:revealjs_parallaxBackgroundSize: 4936px 2092px
+
 ifdef::env-ide[]
 :imagesdir: ../images
 endif::[]
@@ -27,8 +22,34 @@ ifndef::env-ide[]
 :imagesdir: images
 endif::[]
 //:revealjs_theme: sky
-//:title-slide-background-image: img.png
+//:title-slide-background-image: websocket_connection.png
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
 
-== Was sind WebSockets?
+
+== Was ist WebSocket?
+
+* Kommunikationsprotokoll für Computer über eine einzige TCP-Verbindung
+* Ermöglicht bidirektionale Kommunikation zwischen Client und Server
+
+
+
+== Bild WebSocket
+image::websocket_connection.png[WebSocket, 400, 300]
+
+
+== Unterschiede zu HTTP
+
+* WebSocket ist von HTTP getrennt, nutzt aber HTTP-Ports (443, 80).
+* Verwendet das `Upgrade`-Header, um von HTTP zu WebSocket zu wechseln.
+* Bietet Voll-Duplex-Kommunikation mit geringerem Overhead als HTTP-Polling.
+
+
+== Vorteile von WebSocket
+
+* Effiziente, dauerhafte Verbindung zwischen Client und Server.
+* Echtzeit-Datenübertragung mit geringem Overhead.
+* Funktioniert über bestehende Web-Infrastruktur (Ports, Proxys).
+* Ermöglicht Nachrichtenströme über TCP.
+
+

@@ -1,0 +1,41 @@
+= Übung: WebSocket Chat mit TypeScript
+:revdate: 2025-04-16
+:icons: font
+:lang: de
+
+== Ziel der Übung
+
+In dieser Übung wirst du eine einfache WebSocket-basierte Chat-Anwendung mit TypeScript entwickeln. Ziel ist es, das Verständnis für bidirektionale Kommunikation über WebSockets zu vertiefen und den Umgang mit asynchroner Kommunikation im Browser zu üben.
+
+== Beschreibung
+
+Du entwickelst eine Client-Server-Anwendung, bei der mehrere Benutzer über den Webbrowser in Echtzeit miteinander kommunizieren können. Die Kommunikation erfolgt über das WebSocket-Protokoll.
+
+Die Anwendung besteht aus zwei Komponenten:
+
+1. Einem **Node.js WebSocket-Server**, der Nachrichten von Clients entgegennimmt und an alle verbundenen Clients weiterleitet.
+2. Einem **HTML/TypeScript-Client**, der dem Benutzer das Senden und Empfangen von Nachrichten ermöglicht.
+
+== Anforderungen
+
+=== Client (Browser)
+
+* Beim Aufruf der Anwendung soll der Benutzer zur Eingabe eines Namens aufgefordert werden.
+* Der Client stellt eine Verbindung zum WebSocket-Server her.
+* Es gibt ein Texteingabefeld und einen Button zum Senden von Nachrichten.
+* Alle Nachrichten werden im Format `[Name]: Nachricht` angezeigt.
+* Der Client soll auch Nachrichten von anderen Benutzern empfangen und anzeigen.
+
+=== Server (Node.js)
+
+* Der Server akzeptiert WebSocket-Verbindungen über den Port 3000.
+* Beim Empfang einer Nachricht vom Client (als JSON mit Name und Text) soll die Nachricht an alle verbundenen Clients weitergeleitet werden.
+* Nachrichten sollen im Server-Log (Konsole) angezeigt werden.
+* (Optional) Es kann angezeigt werden, wenn sich ein Benutzer verbindet oder trennt.
+
+== Bonus-Ideen (Optional)
+
+* Anzeige von Systemnachrichten wie "Benutzer XYZ hat den Chat betreten".
+* Farbige Darstellung von Nachrichten je nach Benutzername.
+* Begrenzung der Nachrichtenlänge.
+* Anzeige der aktuellen Benutzeranzahl im Chat.
