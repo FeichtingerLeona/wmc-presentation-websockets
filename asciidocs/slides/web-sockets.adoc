@@ -12,9 +12,14 @@
 :revealjs_width: 1408
 :revealjs_height: 792
 :source-highlighter: highlightjs
+//:revealjs_parallaxBackgroundImage: images/background-landscape-light-orange.jpg
+//:revealjs_parallaxBackgroundSize: 4936px 2092px
+//:highlightjs-theme: css/atom-one-light.css
+// we want local served font-awesome fonts
 :iconfont-remote!:
 :iconfont-name: fonts/fontawesome/css/all
-
+//:revealjs_parallaxBackgroundImage: background-landscape-light-orange.jpg
+//:revealjs_parallaxBackgroundSize: 4936px 2092px
 ifdef::env-ide[]
 :imagesdir: ../images
 endif::[]
@@ -22,34 +27,83 @@ ifndef::env-ide[]
 :imagesdir: images
 endif::[]
 //:revealjs_theme: sky
-//:title-slide-background-image: websocket_connection.png
+//:title-slide-background-image: img.png
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
 
+== Was ist ein Web Socket?
+WebSockets sind ein Kommunikationsprotokoll, das eine dauerhafte, bidirektionale Verbindung zwischen Client und Server ermöglicht. Die Verbindung bleibt bestehen und wird nicht wie bei HTTP für jeden Request neu aufgebaut und dann wieder geschlossen.
 
-== Was ist WebSocket?
+== Vorteile
+* *Effiziente Netzwerknutzung*: Die Verbindung kann für mehrere Requests genutzt werden, wodurch Overhead gespart wird, der Bandbreite und Verarbeitungszeit in Anspruch nimmt.
+* *Echtzeit-Kommunikation*: Dank der dauerhaften Verbindung können Server und Client jederzeit Daten senden. Dies ist besonders nützlich für Anwendungen wie Chats oder Online-Spiele.
 
-* Kommunikationsprotokoll für Computer über eine einzige TCP-Verbindung
-* Ermöglicht bidirektionale Kommunikation zwischen Client und Server
+== Wie funktionieren Web Sockets?
+1. Der Client sendet eine Anfrage an den Server.
+2. Ein sogenannter *Handshake* wird durchgeführt. Dieser Handshake legt den Header für die gesamte Verbindung fest.
 
+== HTTP Header
+* *Kurzlebig* – Eine neue Verbindung wird für jede Anfrage geöffnet und nach der Antwort wieder geschlossen.
+* *Anfrage-Antwort-Prinzip* – Der Client sendet eine Anfrage, der Server antwortet, aber der Server kann nicht eigenständig Daten senden.
+* *Mehr Overhead* – Jede Anfrage benötigt Header-Daten, was zusätzlichen Overhead erzeugt.
+* *Typischer Header-Aufbau:*
++
+[source]
+----
+GET /data HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+Accept: application/json
+Connection: keep-alive
+----
+Dieser Header wird bei jeder HTTP-Anfrage verwendet, wobei zusätzliche Daten gesendet werden. Meistens erhält man eine einfache OK-Antwort zurück.
 
+== WebSocket Header
+* *Langlebige Verbindung* – Die Verbindung bleibt nach dem Handshake bestehen, bis sie aktiv geschlossen wird.
+* *Bidirektionale Kommunikation* – Server und Client können jederzeit Daten senden und empfangen.
+* *Weniger Overhead* – Nach dem Handshake gibt es keine zusätzlichen Header-Daten für jede Nachricht.
+* *Zusätzliche Felder für WebSocket:*
++
+[source]
+----
+GET /chat HTTP/1.1 // Das ist unsere GET-Anfrage
+Host: example.com // Zielserver
+Upgrade: websocket // Fordert die Umwandlung der HTTP-Anfrage in einen WebSocket an
+Connection: Upgrade // Signalisiert erneut die Umstellung auf WebSockets
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9YZrdMw== // Zufällig generierter WebSocket-Key für Sicherheit
+Sec-WebSocket-Version: 13 // Protokoll-Version
+----
+WebSockets sind eine Erweiterung eines HTTP-Requests. Ab dem Punkt `Upgrade` wird der Handshake abgeschlossen und das WebSocket-Protokoll festgelegt. Danach bleibt die Verbindung bestehen, und es können bidirektionale Daten zwischen Client und Server ausgetauscht werden.
 
-== Bild WebSocket
-image::websocket_connection.png[WebSocket, 400, 300]
+== Wie kann ich einen WebSocket erstellen?
 
+=== Client-Seite
+[source,html]
+----
+<!DOCTYPE html>
+<script>
+// Verbindung zum Server aufbauen
+ws = new WebSocket("ws://127.0.0.1/scoreboard") // Lokaler Server
+// ws = new WebSocket("wss://game.example.com/scoreboard") // Externer Server
 
-== Unterschiede zu HTTP
+ws.onopen = () => {
+    console.log("Connection opened")
+    ws.send("Hi server, please send me the score of yesterday's game")
+}
 
-* WebSocket ist von HTTP getrennt, nutzt aber HTTP-Ports (443, 80).
-* Verwendet das `Upgrade`-Header, um von HTTP zu WebSocket zu wechseln.
-* Bietet Voll-Duplex-Kommunikation mit geringerem Overhead als HTTP-Polling.
+ws.onmessage = (event) => {
+    console.log("Data received", event.data)
+    ws.close() // Verbindung schließen, da die benötigten Daten empfangen wurden
+}
 
+ws.onclose = (event) => {
+    console.log("Connection closed", event.code, event.reason, event.wasClean)
+}
 
-== Vorteile von WebSocket
-
-* Effiziente, dauerhafte Verbindung zwischen Client und Server.
-* Echtzeit-Datenübertragung mit geringem Overhead.
-* Funktioniert über bestehende Web-Infrastruktur (Ports, Proxys).
-* Ermöglicht Nachrichtenströme über TCP.
+ws.onerror = () => {
+    console.log("Connection closed due to error")
+}
+</script>
+----
 
 
