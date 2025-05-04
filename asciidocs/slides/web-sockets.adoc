@@ -108,4 +108,4 @@ ws.onerror = () => {
 
 == Beispiel
 
-link:../indication-example-project.adoc[Mini Projekt: WebSocket Chat mit TypeScript]
+link:../indication-example-project.html[Mini Projekt: WebSocket Chat mit TypeScript]
