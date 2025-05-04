@@ -46,5 +46,5 @@ wss.on('connection', (ws) => {
 });
 
 server.listen(3000, () => {
-    console.log('🌍 Server läuft unter http://localhost:3000');
+    console.log('Server läuft unter http://localhost:3000');
 });
