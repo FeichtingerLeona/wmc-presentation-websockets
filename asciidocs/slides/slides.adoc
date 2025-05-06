@@ -46,8 +46,9 @@ WebSockets sind ein Kommunikationsprotokoll, das eine dauerhafte, bidirektionale
 * *Kurzlebig* – Eine neue Verbindung wird für jede Anfrage geöffnet und nach der Antwort wieder geschlossen.
 * *Anfrage-Antwort-Prinzip* – Der Client sendet eine Anfrage, der Server antwortet, aber der Server kann nicht eigenständig Daten senden.
 * *Mehr Overhead* – Jede Anfrage benötigt Header-Daten, was zusätzlichen Overhead erzeugt.
-* *Typischer Header-Aufbau:*
-+
+
+=== Typischer Header-Aufbau:
+
 [source]
 ----
 GET /data HTTP/1.1
@@ -62,8 +63,10 @@ Dieser Header wird bei jeder HTTP-Anfrage verwendet, wobei zusätzliche Daten ge
 * *Langlebige Verbindung* – Die Verbindung bleibt nach dem Handshake bestehen, bis sie aktiv geschlossen wird.
 * *Bidirektionale Kommunikation* – Server und Client können jederzeit Daten senden und empfangen.
 * *Weniger Overhead* – Nach dem Handshake gibt es keine zusätzlichen Header-Daten für jede Nachricht.
-* *Zusätzliche Felder für WebSocket:*
-+
+
+=== Zusätzliche Felder für WebSocket:
+
+
 [source]
 ----
 GET /chat HTTP/1.1 // Das ist unsere GET-Anfrage
