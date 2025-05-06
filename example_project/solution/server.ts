@@ -1,4 +1,4 @@
-import { WebSocketServer } from 'ws';
+import {WebSocketServer} from 'ws';
 import * as http from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -16,21 +16,23 @@ const server = http.createServer((req, res) => {
             res.end('Not Found');
             return;
         }
-        res.writeHead(200, { 'Content-Type': contentType });
+        res.writeHead(200, {'Content-Type': contentType});
         res.end(content);
     });
 });
 
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({server});
+let userNames: string[] = [];
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws ) => {
     console.log('Neuer Client verbunden');
+    ws.send('Willkommen im Chat!');
 
     ws.on('message', (data) => {
         const message = JSON.parse(data.toString());
         const fullMessage = `[${message.name}]: ${message.text}`;
 
-        console.log('📨', fullMessage);
+        console.log(fullMessage);
 
         // Nachricht an alle Clients weiterleiten
         wss.clients.forEach(client => {
@@ -40,7 +42,7 @@ wss.on('connection', (ws) => {
         });
     });
 
-    ws.on('close', () => {
+    ws.on('close', (data) => {
         console.log('Client getrennt');
     });
 });
