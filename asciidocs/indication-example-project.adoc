@@ -28,3 +28,7 @@ Die Anwendung besteht aus zwei Komponenten:
 * Der Server akzeptiert WebSocket-Verbindungen über den Port 3000.
 * Beim Empfang einer Nachricht vom Client (als JSON mit Name und Text) soll die Nachricht an alle verbundenen Clients weitergeleitet werden.
 
+== Bonus Aufgabe
+* Verschönerung der Anwendung mit CSS
+* Implementierung einer Benutzerliste, die anzeigt, welche Benutzer online sind.
+* Ausgabe, wenn sich ein neuer Benutzer anmeldet oder abmeldet. (z.B. `Max Mustermann ist online` oder `Max Mustermann ist offline`)
